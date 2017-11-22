@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fm.dao.SongDao">
+
+    <resultMap type="Song" id="songMapper">
+        <id column="song_id" property="songId" />
+        <result column="singer_id" property="singerId"/>
+        <result column="song_name" property="songName" />
+        <result column="style" property="songStyle" />
+        <result column="language" property="songLanguage" />
+        <result column="location" property="locationPath" />
+        <result column="cover_image" property="coverImagePath" />
+    </resultMap>
+
+    <insert id="insertSong" parameterType="Song">
+        INSERT INTO song_info(singer_id, song_name, style, language, location, cover_image)
+        VALUES(#{singerId}, #{songName}, #{songStyle}, #{songLanguage}, #{locationPath}, #{coverImagePath})
+    </insert>
+
+    <delete id="deleteSongById">
+        DELETE FROM song_info WHERE song_id=#{songId}
+    </delete>
+
+    <update id="">
+        UPDATE song_info SET singer_id=#{singerId}, song_name=#{songName}, style=#{songStyle},
+            language=#{songLanguage}, location=#{locationPath}, cover_image=#{coverImagePath}
+        WHERE song_id=#{songId}
+    </update>
+
+    <select id="selectAllSongs" resultMap="songMapper" >
+        SELECT song_id,singer_id,song_name,style,language,location,cover_image FROM song_info
+    </select>
+
+    <select id="selectSongById" resultMap="songMapper">
+        SELECT song_id,singer_id,song_name,style,language,location,cover_image FROM song_info WHERE song_id=#{id}
+    </select>
+
+    <select id="selectSongsByName" resultMap="songMapper">
+        SELECT song_id,singer_id,song_name,style,language,location,cover_image FROM song_info
+        WHERE song_name LIKE concat('%', #{songName}, '%');
+    </select>
+
+    <select id="selectLastSong" resultMap="songMapper">
+        SELECT song_id,singer_id,song_name,style,language,location,cover_image FROM song_info ORDER BY song_id DESC LIMIT 1
+    </select>
+
+    <select id="selectNumberOfSongs" resultType="int">
+        SELECT count(*) FROM song_info
+    </select>
+
+    <select id="selectSpecifiedNumberOfSongs" resultMap="songMapper" parameterType="int">
+        SELECT song_id,singer_id,song_name,style,language,location,cover_image FROM song_info ORDER BY song_id LIMIT #{param1},#{param2}
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fm.dao.SongListDao">
+
+    <resultMap type="SongListItem" id="songListItemMapper">
+        <id column="song_id" property="songId" />
+        <result column="song_name" property="songName" />
+        <result column="singer_name" property="singerName" />
+        <result column="location" property="locationPath" />
+        <result column="cover_image" property="coverImagePath" />
+    </resultMap>
+
+    <select id="selectAllSongListItem" resultMap="songListItemMapper">
+        SELECT * FROM song_list
+    </select>
+</mapper>

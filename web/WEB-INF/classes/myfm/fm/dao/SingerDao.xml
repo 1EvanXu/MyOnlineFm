@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fm.dao.SingerDao">
+
+    <resultMap type="Singer" id="singerMapper">
+        <id column="singer_id" property="singerId" />
+        <result column="singer_name" property="singerName" />
+        <result column="gender" property="gender" />
+        <result column="singer_type" property="singerType" />
+        <result column="region" property="region" />
+    </resultMap>
+
+    <insert id="insertSinger" parameterType="Singer">
+        INSERT INTO singer_info(singer_name, gender, singer_type, region)
+                VALUES (#{singerName}, #{gender}, #{singerType}, #{region})
+    </insert>
+
+    <delete id="deleteSingerById">
+        DELETE FROM singer_info WHERE singer_id=#{singerId}
+    </delete>
+
+    <update id="updateSinger" parameterType="Singer">
+        UPDATE singer_info SET singer_name=#{singerName}, gender=#{gender}, singer_type=#{singerType}, region=#{region}
+        WHERE singer_id=#{singerId}
+    </update>
+
+
+    <select id="selectSingerById" resultMap="singerMapper">
+        SELECT singer_id,singer_name,gender,singer_type,region FROM singer_info WHERE singer_id=#{id}
+    </select>
+
+    <select id="selectSingersByName" resultMap="singerMapper">
+        SELECT singer_id,singer_name,gender,singer_type,region FROM singer_info
+        WHERE singer_name LIKE concat('%', #{singerName}, '%');
+    </select>
+
+    <select id="selectSingerByName" resultMap="singerMapper">
+        SELECT singer_id,singer_name,gender,singer_type,region FROM singer_info
+        WHERE singer_name=#{singerName}
+    </select>
+
+    <select id="selectAllSingers" resultMap="singerMapper">
+        SELECT singer_id,singer_name,gender,singer_type,region FROM singer_info
+    </select>
+
+    <select id="selectNumberOfSingers" resultType="int">
+        SELECT count(singer_id) FROM singer_info
+    </select>
+
+    <select id="selectSpecifiedNumberOfSingers" resultMap="singerMapper" parameterType="int">
+        SELECT * FROM singer_info ORDER BY singer_id LIMIT #{param1},#{param2}
+    </select>
+
+</mapper>

@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="myfm:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/myfm_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="myfm/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="myfm" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="I:/Java/mysql-connector-java-6.0.6-bin.jar" />
+          <element id="file-copy" path="I:/Java/mysql-connector-java-5.1.44-bin.jar" />
+          <element id="library" level="project" name="lib" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

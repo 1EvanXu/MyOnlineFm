@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <!--指定spring配置文件的位置及名称-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring.xml</param-value>
+    </context-param>
+    <!--注册ServletContext监听器-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+
+    <servlet>
+        <servlet-name>bLoginCheck</servlet-name>
+        <servlet-class>fm.backstage.BackstageLoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>bLoginCheck</servlet-name>
+        <url-pattern>/bLoginCheck</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>songList</servlet-name>
+        <servlet-class>fm.frontstage.SongListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>songList</servlet-name>
+        <url-pattern>/play</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminlogin</servlet-name>
+        <jsp-file>/adminlogin.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminlogin</servlet-name>
+        <url-pattern>/adminlogin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminlogout</servlet-name>
+        <jsp-file>/managerpages/adminlogout.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminlogout</servlet-name>
+        <url-pattern>/adminlogout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>manager</servlet-name>
+        <jsp-file>/managerpages/managerIndex.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>manager</servlet-name>
+        <url-pattern>/manager</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>upload</servlet-name>
+        <jsp-file>/managerpages/uploadsongs.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>upload</servlet-name>
+        <url-pattern>/manager/upload</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>singerInformation</servlet-name>
+        <jsp-file>/managerpages/singerInformation.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>singerInformation</servlet-name>
+        <url-pattern>/manager/singerInformation</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>songInformation</servlet-name>
+        <jsp-file>/managerpages/songInformation.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>songInformation</servlet-name>
+        <url-pattern>/manager/songInformation</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>singerManagement</servlet-name>
+        <jsp-file>/managerpages/singerManagement.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>singerManagement</servlet-name>
+        <url-pattern>/manager/singerManagement</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>doUpload</servlet-name>
+        <servlet-class>fm.backstage.upload.UploadServlet</servlet-class>
+        <init-param>
+            <param-name>songFilePath</param-name>
+            <param-value>songs</param-value>
+        </init-param>
+        <init-param>
+            <param-name>tempFilePath</param-name>
+            <param-value>temp</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>doUpload</servlet-name>
+        <url-pattern>/manager/doUpload</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addSingerServlet</servlet-name>
+        <servlet-class>fm.backstage.singermanagement.AddSingerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addSingerServlet</servlet-name>
+        <url-pattern>/manager/doAddSinger</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
