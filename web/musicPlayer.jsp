@@ -1,6 +1,3 @@
-<%@ page import="java.util.List" %>
-<%@ page import="fm.beans.SongListItem" %>
-<%@ page import="fm.backstage.upload.StringProcessor" %>
 <%--
   Created by IntelliJ IDEA.
   User: 徐一凡
@@ -8,17 +5,31 @@
   Time: 12:59
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <link rel="stylesheet" href="src/css/smusic.css"/>
-  <title>MyFM</title>
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/resource_lr/images/one.ico">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/src/css/smusic.css"/>
+  <title>ONE FM-爱生活，爱音乐，爱分享</title>
 </head>
 <body>
+<div style="background: rgba(255,255,255, 0.5);height: 30px;padding: 4px;">
+  <div style="float: left"><img src="src/img/onefm.png" alt="ONE FM"></div>
+  <c:choose>
+    <c:when test="${not empty user}">
+      <div style="float: right">
+        你好，${user.userName}&nbsp;<a href="${pageContext.request.contextPath}/front/logout.do">退出</a>
+      </div>
+    </c:when>
+    <c:otherwise>
+      <div style="float: right"><a href="${pageContext.request.contextPath}/login.html">登录</a></div>
+    </c:otherwise>
+  </c:choose>
+</div>
 <div class="grid-music-container f-usn">
   <div class="m-music-play-wrap">
     <div class="u-cover"></div>
@@ -52,35 +63,32 @@
   <div class="f-cb">&nbsp;</div>
   <div class="m-music-list-wrap" style="visibility: hidden"></div>
 </div>
-<%
-  String title = "";
-  String path = "";
-
-  List<SongListItem> songList = (List<SongListItem>) request.getAttribute("songList");
-
-%>
 
 <script src="src/js/smusic.min.js"></script>
 <script>
     var musicList = [
-        <%
-        if (!songList.isEmpty()) {
-            for (SongListItem item:songList) {
-        %>
+        <c:if test="${not empty songList}">
+        <c:forEach var="songListItem" items="${songList}">
+        <c:choose>
+        <c:when test="${status.last}">
         {
-            title : '<%=item.getSongName()%>',
-            singer : '<%=item.getSingerName()%>',
-            cover  : '<%=item.getCoverImagePath()%>',
-            src    : '<%=item.getLocationPath()%>'
-        },
-        <%}}%>
-        {
-            title : 'Falling U',
-            singer : 'T-ara',
-            cover  : 'images/T-ara.jpg',
-            src    : 'songs/FallingU-T-ara.mp3'
+            title : '${songListItem.songName}',
+            singer : '${songListItem.singerName}',
+            cover  : '${songListItem.coverImagePath}',
+            src    : '${songListItem.locationPath}'
         }
-
+        </c:when>
+        <c:otherwise>
+        {
+            title : '${songListItem.songName}',
+            singer : '${songListItem.singerName}',
+            cover  : '${songListItem.coverImagePath}',
+            src    : '${songListItem.locationPath}'
+        },
+        </c:otherwise>
+        </c:choose>
+        </c:forEach>
+        </c:if>
     ];
     new SMusic({
         musicList:musicList

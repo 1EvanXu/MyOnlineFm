@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <context:component-scan base-package="fm.views.*" />
+
+    <mvc:annotation-driven />
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="209715200"/><!--所上传的文件的总的大小-->
+        <property name="maxUploadSizePerFile" value="20971520" />
+    </bean>
+
+    <!--注册视图解析器：xml视图解析器-->
+    <bean class="org.springframework.web.servlet.view.XmlViewResolver" >
+        <property name="location" value="/WEB-INF/views.xml"/>
+    </bean>
+
+    <mvc:default-servlet-handler />
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/front/login.do"/>
+            <bean class="fm.views.frontstage.interceptor.PermissionInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>

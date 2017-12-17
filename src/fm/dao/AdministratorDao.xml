@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fm.dao.AdministratorDao">
+
+    <resultMap id="adminMapper" type="Administrator">
+        <id column="admin_id" property="adminId"/>
+        <result column="admin_name" property="adminName"/>
+        <result column="admin_password" property="adminPassword"/>
+    </resultMap>
+
+    <select id="selectAllAdministrators" resultMap="adminMapper">
+        SELECT * FROM administrators_info;
+    </select>
+
+    <select id="selectAdministratorByName" resultMap="adminMapper">
+        SELECT * FROM administrators_info WHERE admin_name=#{adminName}
+    </select>
+</mapper>

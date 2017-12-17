@@ -22,7 +22,7 @@
         DELETE FROM song_info WHERE song_id=#{songId}
     </delete>
 
-    <update id="">
+    <update id="updateSong">
         UPDATE song_info SET singer_id=#{singerId}, song_name=#{songName}, style=#{songStyle},
             language=#{songLanguage}, location=#{locationPath}, cover_image=#{coverImagePath}
         WHERE song_id=#{songId}

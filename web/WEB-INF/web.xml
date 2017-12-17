@@ -3,127 +3,71 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-
-    <!--指定spring配置文件的位置及名称-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring.xml</param-value>
+        <param-value>/WEB-INF/applicationContext.xml</param-value>
     </context-param>
-    <!--注册ServletContext监听器-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-
-
-    <servlet>
-        <servlet-name>bLoginCheck</servlet-name>
-        <servlet-class>fm.backstage.BackstageLoginServlet</servlet-class>
-    </servlet>
+    <listener>
+        <listener-class>fm.beans.OnlineUser</listener-class>
+    </listener>
+    <listener>
+        <listener-class>fm.views.FmServletContextListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>fm.views.VisitRecordListener</listener-class>
+    </listener>
     <servlet-mapping>
-        <servlet-name>bLoginCheck</servlet-name>
-        <url-pattern>/bLoginCheck</url-pattern>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.js</url-pattern>
+        <url-pattern>*.min.js</url-pattern>
+        <url-pattern>*.png</url-pattern>
+        <url-pattern>*.gif</url-pattern>
+        <url-pattern>*.jpg</url-pattern>
+        <url-pattern>*.jpeg</url-pattern>
+        <url-pattern>*.ico</url-pattern>
+        <url-pattern>*.css</url-pattern>
+        <url-pattern>*.html</url-pattern>
+        <url-pattern>*.mp3</url-pattern>
     </servlet-mapping>
-
     <servlet>
-        <servlet-name>songList</servlet-name>
-        <servlet-class>fm.frontstage.SongListServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>songList</servlet-name>
-        <url-pattern>/play</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>adminlogin</servlet-name>
-        <jsp-file>/adminlogin.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>adminlogin</servlet-name>
-        <url-pattern>/adminlogin</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>adminlogout</servlet-name>
-        <jsp-file>/managerpages/adminlogout.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>adminlogout</servlet-name>
-        <url-pattern>/adminlogout</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>manager</servlet-name>
-        <jsp-file>/managerpages/managerIndex.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>manager</servlet-name>
-        <url-pattern>/manager</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>upload</servlet-name>
-        <jsp-file>/managerpages/uploadsongs.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>upload</servlet-name>
-        <url-pattern>/manager/upload</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>singerInformation</servlet-name>
-        <jsp-file>/managerpages/singerInformation.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>singerInformation</servlet-name>
-        <url-pattern>/manager/singerInformation</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>songInformation</servlet-name>
-        <jsp-file>/managerpages/songInformation.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>songInformation</servlet-name>
-        <url-pattern>/manager/songInformation</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>singerManagement</servlet-name>
-        <jsp-file>/managerpages/singerManagement.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>singerManagement</servlet-name>
-        <url-pattern>/manager/singerManagement</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>doUpload</servlet-name>
-        <servlet-class>fm.backstage.upload.UploadServlet</servlet-class>
-        <init-param>
-            <param-name>songFilePath</param-name>
-            <param-value>songs</param-value>
-        </init-param>
-        <init-param>
-            <param-name>tempFilePath</param-name>
-            <param-value>temp</param-value>
-        </init-param>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>doUpload</servlet-name>
-        <url-pattern>/manager/doUpload</url-pattern>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>*.do</url-pattern>
     </servlet-mapping>
-
+    
     <servlet>
-        <servlet-name>addSingerServlet</servlet-name>
-        <servlet-class>fm.backstage.singermanagement.AddSingerServlet</servlet-class>
+        <servlet-name>admin</servlet-name>
+        <jsp-file>/admin.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>addSingerServlet</servlet-name>
-        <url-pattern>/manager/doAddSinger</url-pattern>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
     </servlet-mapping>
 
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
+
+    <!--注册字符集过滤器-->
+    <filter>
+        <filter-name>characterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>characterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 </web-app>

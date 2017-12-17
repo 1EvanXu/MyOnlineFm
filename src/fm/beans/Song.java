@@ -7,7 +7,7 @@ public class Song {
     private String songStyle = null;
     private String songLanguage = null;
     private String locationPath;
-    private String coverImagePath = null;
+    private String coverImagePath = "images/default.jpg";
 
     public Song() { }
 

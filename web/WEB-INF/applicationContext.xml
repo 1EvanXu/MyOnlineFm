@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--注册属性文件-->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:jdbc.properties" />
+    </bean>
+
+    <!--注册数据源：C3P0-->
+    <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" >
+        <property name="driverClass" value="${jdbc.driver}" />
+        <property name="jdbcUrl" value="${jdbc.url}" />
+        <property name="user" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!--注册SqlSessionFactory-->
+    <bean id="mySqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:mybatis.xml"/>
+        <property name="dataSource" ref="myDataSource"/>
+    </bean>
+
+    <!--生成Dao代理对象:Mapper自动扫描-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="mySqlSessionFactory"/>
+        <property name="basePackage" value="fm.dao"/>
+    </bean>
+
+    <!--注册userService-->
+    <bean id="userService" class="fm.services.Implements.UserServiceImp">
+        <property name="userDao" ref="userDao" />
+    </bean>
+
+    <!--注册PageHitStatisticsService-->
+    <bean id="pageHitStatisticsService" class="fm.services.Implements.PageHitStatisticsServiceImp">
+        <property name="pageHitDao" ref="pageHitDao" />
+    </bean>
+
+    <!--注册visitRecordService-->
+    <bean id="visitRecordService" class="fm.services.Implements.VisitRecordServiceImp">
+        <property name="visitRecordsDao" ref="visitRecordsDao" />
+    </bean>
+
+    <!--注册singerService-->
+    <bean id="singerService" class="fm.services.Implements.SingerServiceImp">
+        <property name="singerDao" ref="singerDao"/>
+    </bean>
+    <!--注册songService-->
+    <bean id="songService" class="fm.services.Implements.SongServiceImp">
+        <property name="singerDao" ref="singerDao"/>
+        <property name="songDao" ref="songDao"/>
+    </bean>
+    <!--注册SongListService-->
+    <bean id="songListService" class="fm.services.Implements.SongListServiceImp">
+        <property name="songListDao" ref="songListDao"/>
+    </bean>
+
+    <!--注册AdministratorService-->
+    <bean id="administratorService" class="fm.services.Implements.AdministratorServiceImp">
+        <property name="administratorDao" ref="administratorDao" />
+    </bean>
+</beans>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fm.dao.VisitRecordsDao">
+
+    <resultMap id="visitRecordMapper" type="VisitRecord">
+        <id column="id" property="id" />
+        <result column="ip" property="ipAddress"/>
+        <result column="hostname" property="hostname"/>
+        <result column="tmstamp" property="timeStamp" />
+        <result column="visiturl" property="visitUrl"/>
+    </resultMap>
+
+    <insert id="insertVisitRecord" parameterType="VisitRecord">
+        INSERT INTO visit_records (ip, hostname, tmstamp, visiturl) VALUES (#{ipAddress}, #{hostname}, CURRENT_TIMESTAMP, #{visitUrl})
+    </insert>
+
+    <select id="selectAllVisitRecords" resultMap="visitRecordMapper">
+        SELECT * FROM visit_records
+    </select>
+
+    <select id="selectVisitRecordsByDay" resultMap="visitRecordMapper">
+        SELECT * FROM visit_records WHERE day(tmstamp)=#{day}
+    </select>
+
+    <select id="selectVisitRecordsByIp" resultMap="visitRecordMapper">
+        SELECT * FROM visit_records WHERE ip=#{ip}
+    </select>
+
+    <select id="selectTotalNumberOfRecords" resultType="Integer">
+        SELECT count(id) FROM visit_records
+    </select>
+
+    <select id="selectNumberOfRecordsByYear" resultType="Integer">
+        SELECT count(id) FROM visit_records WHERE year(tmstamp)=#{year}
+    </select>
+
+    <select id="selectNumberOfRecordsByMonth" resultType="Integer">
+        SELECT count(id) FROM visit_records WHERE month(tmstamp)=#{month}
+    </select>
+    <select id="selectNumberOfRecordsByDay" resultType="Integer">
+        SELECT count(id) FROM visit_records WHERE day(tmstamp)=#{day}
+    </select>
+
+    <select id="selectNumberOfRecordsByIp" resultType="Integer">
+        SELECT count(id) FROM visit_records WHERE ip=#{ip}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fm.dao.PageHitDao">
+
+    <resultMap id="PageHitMapper" type="PageHitStatistics">
+        <id column="id" property="id" />
+        <result column="time_stamp" property="time"/>
+        <result column="hit_count" property="pageHitCount" />
+    </resultMap>
+
+    <insert id="insertPageHitStatisticsInfo" parameterType="PageHitStatistics">
+        INSERT INTO page_hit_statistics_info (time_stamp, hit_count) VALUES (CURRENT_TIMESTAMP, #{pageHitCount})
+    </insert>
+
+    <select id="selectAllPageHitStatisticsInfo" resultMap="PageHitMapper">
+        SELECT * FROM page_hit_statistics_info
+    </select>
+
+    <select id="selectTotalHitCount" resultType="Integer">
+        SELECT sum(hit_count) FROM page_hit_statistics_info
+    </select>
+
+    <select id="selectHitCountByDay" resultType="Integer">
+        SELECT sum(hit_count) FROM page_hit_statistics_info WHERE date(time_stamp)=#{day}
+    </select>
+    
+    <select id="selectHitCountByHour" resultType="Integer">
+        SELECT sum(hit_count) FROM page_hit_statistics_info WHERE date_format(time_stamp, '%Y-%m-%d %H')=#{hour}
+    </select>
+
+
+</mapper>

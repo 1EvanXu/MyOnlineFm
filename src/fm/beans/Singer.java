@@ -4,9 +4,9 @@ public class Singer {
 
     private Integer singerId;
     private String singerName;
-    private String gender;
-    private String singerType;
-    private String region;
+    private String gender = "";
+    private String singerType = "";
+    private String region = "";
 
     public Singer() {}
 

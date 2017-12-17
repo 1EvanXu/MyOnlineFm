@@ -47,12 +47,13 @@ header,footer,section,article,aside,nav,address,figure,figcaption,menu,details{d
 html,body{
     width: 100%;
     height: 100%;
-    background-color: #3792ef;
+    /*background-color: #3792ef;*/
+    background-color: #546b83;
     overflow: hidden;
     font-family: "Microsoft Yahei","微软雅黑","Helvetica Neue","Hiragino Sans GB",Helvetica,Tahoma,sans-serif;
-    background-image: url("../img/background-img1.jpg");
-    background-repeat: no-repeat;
-    background-size: 100% 100%
+    /*background-image: url("../img/background-img1.jpg");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%*/
 }
 
 /*SMusic*/

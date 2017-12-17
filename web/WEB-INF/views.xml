@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--定义内部资源视图-->
+    <bean id="login" class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/login.jsp" />
+    </bean>
+
+    <bean id="register" class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/register.jsp" />
+    </bean>
+    <bean id="index" class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/index.jsp" />
+    </bean>
+
+    <bean id="registerSuccess" class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/registerSuccess.jsp" />
+    </bean>
+
+    <bean id="musicPlayer" class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/musicPlayer.jsp" />
+    </bean>
+
+    <bean id="songInfo" class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/management/songInfo.jsp" />
+    </bean>
+
+    <bean id="addSong" class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/management/addSong.jsp" />
+    </bean>
+
+    <bean id="singerInfo" class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/management/singerInfo.jsp" />
+    </bean>
+
+    <bean id="addSinger" class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/management/addSinger.jsp" />
+    </bean>
+
+    <bean id="manager" class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/management/managerIndex.jsp" />
+    </bean>
+
+    <bean id="admin" class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/admin.jsp" />
+    </bean>
+
+    <bean id="errorPage" class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/ErrorPage.jsp" />
+    </bean>
+
+
+</beans>

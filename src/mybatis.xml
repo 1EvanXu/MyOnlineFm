@@ -5,7 +5,6 @@
 
     <!--定义类的别名-->
     <typeAliases>
-        <!--<typeAlias type="com.beans.Student" alias="Student" />-->
         <!--将指定包中所有类的简单类名当做其别名-->
         <package name="fm.beans" />
     </typeAliases>
